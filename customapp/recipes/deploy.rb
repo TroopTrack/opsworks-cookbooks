@@ -1,6 +1,6 @@
 node[:deploy].each do |application, deploy|
-  if deploy[:application_type] != 'custom'
-    Chef::Log.debug("Skipping redis::configure as application #{application} as it is not a custom app")
+  if deploy[:application_type] != 'other'
+    Chef::Log.debug("Skipping customapp::deploy as application #{application} as it is not a custom app")
     next
   end
 
