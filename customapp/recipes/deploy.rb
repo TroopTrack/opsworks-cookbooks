@@ -4,7 +4,7 @@ node[:deploy].each do |application, deploy|
     next
   end
 
-  include_recipe 'fetch'
+  include_recipe 'customapp::fetch'
 
   bash "stopping_statsims_processes" do
     user "deploy"
