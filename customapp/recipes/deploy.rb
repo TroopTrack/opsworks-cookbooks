@@ -23,7 +23,7 @@ node[:deploy].each do |application, deploy|
     cwd "/tmp"
     code <<-EOH
       echo "$(date) Restarting" >> /tmp/worker-1.log
-      nohup ./statsims >> /tmp/worker-1.log 2> /tmp/worker-1.err < /dev/null &
+      nohup ./statsims -redisHost="tcp:apps01-ci.devtown.int:6379" >> /tmp/worker-1.log 2> /tmp/worker-1.err < /dev/null &
     EOH
   end
 end
