@@ -7,11 +7,6 @@ node[:deploy].each do |application, deploy|
   puts "DEBUG:"
   puts deploy
 
-  remote_file deploy[:custom][:binary_dest] do
-    source deploy[:custom][:binary_url]
-    mode "0755"
-  end
-
   bash "stopping_statsims_processes" do
     user "deploy"
     cwd "/tmp"
@@ -22,6 +17,11 @@ node[:deploy].each do |application, deploy|
         pkill -f statsims
       fi
     EOH
+  end
+
+  remote_file deploy[:custom][:binary_dest] do
+    source deploy[:custom][:binary_url]
+    mode "0755"
   end
 
   bash "start_statsims_worker" do
