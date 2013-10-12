@@ -4,7 +4,13 @@ node[:deploy].each do |application, deploy|
     next
   end
 
-  include_recipe 'customapp::fetch'
+  puts "DEBUG:"
+  puts deploy
+
+  remote_file deploy[:custom][:binary_dest] do
+    source deploy[:custom][:binary_url]
+    mode "0755"
+  end
 
   bash "stopping_statsims_processes" do
     user "deploy"
@@ -22,8 +28,8 @@ node[:deploy].each do |application, deploy|
     user "deploy"
     cwd "/tmp"
     code <<-EOH
-      echo "$(date) Restarting" >> #{deploy[:application][:custom][:logstdout]}
-      #{deploy[:application][:custom][:command]}
+      echo "$(date) Restarting" >> #{deploy[:custom][:logstdout]}
+      #{deploy[:custom][:command]}
     EOH
   end
 end
