@@ -50,7 +50,7 @@ after_fork do |server, worker|
   end
 
   if defined?(Resque)
-    Redis.current.client.quit
+    Resque.redis.client.reconnect
     Rails.logger.info('Connected to Redis')
   end
 
