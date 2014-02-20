@@ -1,6 +1,6 @@
 [submodule "opsworks_custom_env"]
 	path = opsworks_custom_env
-	url = git://github.com/joeyAghion/opsworks_custom_env.git
+	url = https://github.com/joeyAghion/opsworks_custom_env.git
 [submodule "awscli"]
 	path = awscli
 	url = https://github.com/shlomoswidler/awscli.git
