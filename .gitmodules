@@ -6,4 +6,4 @@
 	url = https://github.com/shlomoswidler/awscli.git
 [submodule "mirthconnect"]
 	path = mirthconnect
-	url = https://github.com/Diagnotes/cookbook-mirthconnect.git
+	url = https://github.com/developertown/cookbook-mirthconnect.git
