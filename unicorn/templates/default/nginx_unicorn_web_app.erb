@@ -25,6 +25,16 @@ server {
       break;
     }
   }
+  
+  location ^~ /assets/ {
+    location ~* "^.*?\.(eot)|(ttf)|(woff)$" {
+      add_header Access-Control-Allow-Origin *;
+    }
+
+    gzip_static on;
+    expires max;
+    add_header Cache-Control public;
+  }
 
   location /nginx_status {
     stub_status on;
@@ -70,6 +80,16 @@ server {
       proxy_pass http://unicorn_<%= @application[:domains].first %>;
       break;
     }
+  }
+  
+  location ^~ /assets/ {
+    location ~* "^.*?\.(eot)|(ttf)|(woff)$" {
+      add_header Access-Control-Allow-Origin *;
+    }
+
+    gzip_static on;
+    expires max;
+    add_header Cache-Control public;
   }
 
   error_page 500 502 503 504 /500.html;
