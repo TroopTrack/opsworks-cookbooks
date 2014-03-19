@@ -30,7 +30,7 @@ end
 execute "Including entries from /etc/ipsec.d/*.conf" do
   command "echo \"include /etc/ipsec.d/*.conf\" >> /etc/ipsec.conf"
 
-  not_if { system("grep \"^include /etc/ipsec.d/*.conf\" /etc/ipsec.conf") }
+  not_if { system("grep \"^include /etc/ipsec.d/\*\.conf\" /etc/ipsec.conf") }
 end
 
 
