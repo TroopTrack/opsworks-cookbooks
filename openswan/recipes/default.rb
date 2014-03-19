@@ -55,7 +55,7 @@ node[:openswan][:peers].each do |peer|
   end
 
   service "ipsec" do
-    subscribes :reload, "template[/etc/ipsec.d/#{peer[:name]}.conf]", :immediately
+    subscribes :reload, "template[/etc/ipsec.d/#{peer[:name]}.conf]", :delayed
   end
 end
 
