@@ -35,15 +35,15 @@ node[:openswan][:peers].each do |peer|
     owner "root"
     group "root"
     variables({
-      name: peer[:name],
-      local_ip: node[:ipaddress],
-      elastic_ip: node[:openswan][:my_elastic_ip],
-      their_external_ip: peer[:their_external_ip],
-      their_inside_subnet: peer[:their_inside_subnet],
-      ike: peer[:ike],
-      ikelifetime: peer[:ikelifetime],
-      phase2alg: peer[:phase2alg],
-      salifetime: peer[:salifetime]
+      :name =>peer[:name],
+      :local_ip => node[:ipaddress],
+      :elastic_ip => node[:openswan][:my_elastic_ip],
+      :their_external_ip => peer[:their_external_ip],
+      :their_inside_subnet => peer[:their_inside_subnet],
+      :ike => peer[:ike],
+      :ikelifetime => peer[:ikelifetime],
+      :phase2alg => peer[:phase2alg],
+      :salifetime => peer[:salifetime]
     })
   end
 end
