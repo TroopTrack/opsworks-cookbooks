@@ -27,6 +27,13 @@ execute "Update Kernel Parameters for Openswan" do
 end
 
 
+execute "Including entries from /etc/ipsec.d/*.conf" do
+  command "echo \"include /etc/ipsec.d/*.conf\" >> /etc/ipsec.conf"
+
+  not_if { system("grep \"^include /etc/ipsec.d/*.conf\" /etc/ipsec.conf") }
+end
+
+
 node[:openswan][:peers].each do |peer|
 
   template "/etc/ipsec.d/#{peer[:name]}.conf" do
@@ -46,4 +53,9 @@ node[:openswan][:peers].each do |peer|
       :salifetime => peer[:salifetime]
     })
   end
+
+  service "ipsec" do
+    subscribes :reload, "template[/etc/ipsec.d/#{peer[:name]}.conf]", :immediately
+  end
 end
+
