@@ -29,7 +29,7 @@ end
 
 node[:openswan][:peers].each do |peer|
 
-  template "/etc/ipsec.d/#{peer[:name]}_test.conf" do
+  template "/etc/ipsec.d/#{peer[:name]}.conf" do
     source "site_connection.conf.erb"
     mode 0644
     owner "root"
