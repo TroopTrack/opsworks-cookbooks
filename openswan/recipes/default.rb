@@ -29,7 +29,7 @@ end
 
 execute "Including entries from /etc/ipsec.d/*.conf" do
   command "echo \"include /etc/ipsec.d/*.conf\" >> /etc/ipsec.conf"
-
+  notifies :reload, "service[ipsec]", :delayed
   only_if { (File.readlines "/etc/ipsec.conf").grep(/^include \/etc\/ipsec.d\/\*\.conf$/).empty? }
 end
 
@@ -41,8 +41,9 @@ node[:openswan][:peers].each do |peer|
     mode 0644
     owner "root"
     group "root"
+    notifies :reload, "service[ipsec]", :delayed
     variables({
-      :name =>peer[:name],
+      :name => peer[:name],
       :local_ip => node[:ipaddress],
       :elastic_ip => node[:openswan][:my_elastic_ip],
       :their_external_ip => peer[:their_external_ip],
@@ -54,8 +55,5 @@ node[:openswan][:peers].each do |peer|
     })
   end
 
-  service "ipsec" do
-    subscribes :reload, "template[/etc/ipsec.d/#{peer[:name]}.conf]", :delayed
-  end
 end
 
