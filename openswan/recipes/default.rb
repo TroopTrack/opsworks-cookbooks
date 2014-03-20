@@ -27,11 +27,14 @@ execute "Update Kernel Parameters for Openswan" do
   command "/sbin/sysctl -p /etc/ipsec.d/examples/sysctl.conf"
 end
 
-execute "Including entries from /etc/ipsec.d/*.conf" do
-  command "echo \"include /etc/ipsec.d/*.conf\" >> /etc/ipsec.conf"
-  notifies :reload, "service[ipsec]", :delayed
-  only_if { (File.readlines "/etc/ipsec.conf").grep(/^include \/etc\/ipsec.d\/\*\.conf$/).empty? }
+cookbook_file "openswan-sysctl.conf" do
+  mode 0644
+  owner "root"
+  group "root"
+  path "/etc/sysctl.d/100-openswan.conf"
 end
+
+execute "/sbin/sysctl -p /etc/sysctl.d/100-openswan.conf"
 
 node[:openswan][:peers].each do |peer|
 
