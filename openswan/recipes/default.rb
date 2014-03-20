@@ -22,19 +22,27 @@
 package "openswan"
 service "ipsec"
 
-# Ensure kernel parameters are set properly
-execute "Update Kernel Parameters for Openswan" do
-  command "/sbin/sysctl -p /etc/ipsec.d/examples/sysctl.conf"
+# Ensure kernel NAT parameters are set properly
+cookbook_file "nat-sysctl.conf" do
+  mode 0644
+  owner "root"
+  group "root"
+  path "/etc/sysctl.d/100-nat.conf"
 end
 
+execute "/sbin/sysctl -p /etc/sysctl.d/100-nat.conf"
+
+
+# Ensure kernel parameters for OpenSwan are set properly
 cookbook_file "openswan-sysctl.conf" do
   mode 0644
   owner "root"
   group "root"
-  path "/etc/sysctl.d/100-openswan.conf"
+  path "/etc/sysctl.d/110-openswan.conf"
 end
 
-execute "/sbin/sysctl -p /etc/sysctl.d/100-openswan.conf"
+execute "/sbin/sysctl -p /etc/sysctl.d/110-openswan.conf"
+
 
 node[:openswan][:peers].each do |peer|
 
