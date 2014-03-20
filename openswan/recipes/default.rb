@@ -30,7 +30,7 @@ end
 execute "Including entries from /etc/ipsec.d/*.conf" do
   command "echo \"include /etc/ipsec.d/*.conf\" >> /etc/ipsec.conf"
 
-  not_if "grep \"^include /etc/ipsec.d/\*\.conf\" /etc/ipsec.conf"
+  only_if { (File.readlines "/etc/ipsec.conf").grep(/^include \/etc\/ipsec.d\/\*\.conf$/).empty? }
 end
 
 
