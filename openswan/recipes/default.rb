@@ -61,7 +61,7 @@ node[:openswan][:peers].each do |peer|
     EOH
     notifies :reload, "service[ipsec]", :delayed
 
-    only_if { (File.readlines "/etc/ipsec.secrets").grep(/^#{peer[:their_external_ip]}/).empty? }
+    only_if { (File.readlines "/etc/ipsec.secrets").grep(/^#{Regexp.quote(peer[:name])}/).empty? }
   end
 
 end
