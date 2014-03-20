@@ -20,20 +20,18 @@
 
 # Ensure Openswan is installed
 package "openswan"
+service "ipsec"
 
 # Ensure kernel parameters are set properly
 execute "Update Kernel Parameters for Openswan" do
   command "/sbin/sysctl -p /etc/ipsec.d/examples/sysctl.conf"
 end
 
-service "ipsec"
-
 execute "Including entries from /etc/ipsec.d/*.conf" do
   command "echo \"include /etc/ipsec.d/*.conf\" >> /etc/ipsec.conf"
   notifies :reload, "service[ipsec]", :delayed
   only_if { (File.readlines "/etc/ipsec.conf").grep(/^include \/etc\/ipsec.d\/\*\.conf$/).empty? }
 end
-
 
 node[:openswan][:peers].each do |peer|
 
@@ -54,6 +52,16 @@ node[:openswan][:peers].each do |peer|
       :phase2alg => peer[:phase2alg],
       :salifetime => peer[:salifetime]
     })
+  end
+
+  execute "Adding key to secrets for #{peer[:name]}" do
+    code <<-EOH
+      echo "##{peer[:name} >> /etc/ipsec.secrets"
+      echo "#{peer[:their_external_ip]} %any: PSK \"#{peer[:shared_secret]}\" >> /etc/ipsec.secrets"
+    EOH
+    notifies :reload, "service[ipsec]", :delayed
+
+    only_if { (File.readlines "/etc/ipsec.secrets").grep(/^#{peer[:their_external_ip]}/).empty? }
   end
 
 end
