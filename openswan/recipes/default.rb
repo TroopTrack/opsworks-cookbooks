@@ -56,10 +56,9 @@ node[:openswan][:peers].each do |peer|
 
   bash "Adding key to secrets for #{peer[:name]}" do
     code <<-EOH
-      echo "##{peer[:name]} >> /etc/ipsec.secrets"
-      echo "#{peer[:their_external_ip]} %any: PSK \"#{peer[:shared_secret]}\" >> /etc/ipsec.secrets"
+      echo "##{peer[:name]}"" >> /etc/ipsec.secrets
+      echo "#{peer[:their_external_ip]} %any: PSK \"#{peer[:shared_secret]}\"" >> /etc/ipsec.secrets
     EOH
-    flags "-x"
     notifies :reload, "service[ipsec]", :delayed
 
     only_if { (File.readlines "/etc/ipsec.secrets").grep(/^##{Regexp.quote(peer[:name])}/).empty? }
