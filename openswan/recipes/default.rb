@@ -26,6 +26,7 @@ execute "Update Kernel Parameters for Openswan" do
   command "/sbin/sysctl -p /etc/ipsec.d/examples/sysctl.conf"
 end
 
+service "ipsec"
 
 execute "Including entries from /etc/ipsec.d/*.conf" do
   command "echo \"include /etc/ipsec.d/*.conf\" >> /etc/ipsec.conf"
