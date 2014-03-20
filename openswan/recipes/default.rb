@@ -43,6 +43,11 @@ end
 
 execute "/sbin/sysctl -p /etc/sysctl.d/110-openswan.conf"
 
+# Setup NAT rules
+execute "Setup iptables for NAT" do
+  command "/sbin/iptables  -t nat -A POSTROUTING -o eth0 -s 0.0.0.0/0 -j MASQUERADE"
+  not_if "/sbin/iptables -t nat -C POSTROUTING -o eth0 -s 0.0.0.0/0 -j MASQUERADE"
+end
 
 node[:openswan][:peers].each do |peer|
 
