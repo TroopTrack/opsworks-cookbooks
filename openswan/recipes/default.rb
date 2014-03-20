@@ -27,10 +27,10 @@ cookbook_file "nat-sysctl.conf" do
   mode 0644
   owner "root"
   group "root"
-  path "/etc/sysctl.d/100-nat.conf"
+  path "/etc/sysctl.d/90-nat.conf"
 end
 
-execute "/sbin/sysctl -p /etc/sysctl.d/100-nat.conf"
+execute "/sbin/sysctl -p /etc/sysctl.d/90-nat.conf"
 
 
 # Ensure kernel parameters for OpenSwan are set properly
@@ -38,10 +38,10 @@ cookbook_file "openswan-sysctl.conf" do
   mode 0644
   owner "root"
   group "root"
-  path "/etc/sysctl.d/110-openswan.conf"
+  path "/etc/sysctl.d/91-openswan.conf"
 end
 
-execute "/sbin/sysctl -p /etc/sysctl.d/110-openswan.conf"
+execute "/sbin/sysctl -p /etc/sysctl.d/91-openswan.conf"
 
 # Setup NAT rules
 execute "Setup iptables for NAT" do
