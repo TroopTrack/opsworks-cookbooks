@@ -19,3 +19,9 @@
 [submodule "build-essential"]
 	path = build-essential
 	url = https://github.com/opscode-cookbooks/build-essential.git
+[submodule "sumologic"]
+	path = sumologic
+	url = https://github.com/SumoLogic/sumologic-collector-chef-cookbook
+[submodule "copperegg"]
+	path = copperegg
+	url = https://github.com/CopperEgg/chef-copperegg
