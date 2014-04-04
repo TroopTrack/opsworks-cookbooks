@@ -28,6 +28,3 @@
 [submodule "chef_handler"]
 	path = chef_handler
 	url = https://github.com/opscode-cookbooks/chef_handler
-[submodule "sumologic"]
-	path = sumologic
-	url = https://github.com/SumoLogic/sumologic-collector-chef-cookbook
