@@ -3,6 +3,9 @@ DEPENDENCIES
   awscli
     git: git://github.com/shlomoswidler/awscli.git
     revision: d8ed8082b887d7c33e5ff5951178b8c06ee883e7
+  mirthconnect
+    git: git://github.com/developertown/cookbook-mirthconnect.git
+    revision: 482c350f1004de11b6492a212e6b8bfe7b8d66cf
   newrelic
   opsworks_custom_env
     git: git://github.com/UndoConsulting/opsworks_custom_env.git
@@ -17,6 +20,7 @@ GRAPH
   curl (1.1.0)
   iis (2.1.0)
     windows (>= 1.2.6)
+  mirthconnect (1.1.0)
   ms_dotnet4 (1.0.2)
     windows (>= 0.0.0)
   mysql (5.0.6)
