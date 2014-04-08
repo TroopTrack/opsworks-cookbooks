@@ -9,7 +9,7 @@ if platform?('redhat', 'centos', 'fedora', 'ubuntu', 'debian', 'amazon')
     owner 'root'
     group 'root'
     source 'auto-copperegg.sh.erb'
-    mode 0664
+    mode 0554
     action :create
   end
 
