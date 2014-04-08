@@ -7,6 +7,9 @@ DEPENDENCIES
     git: git://github.com/developertown/cookbook-mirthconnect.git
     revision: 482c350f1004de11b6492a212e6b8bfe7b8d66cf
   newrelic
+  openswan
+    git: git://github.com/developertown/cookbook-openswan.git
+    revision: 2723d4803d1452cc1cfe86e87e981d73927ed59f
   opsworks_custom_env
     git: git://github.com/UndoConsulting/opsworks_custom_env.git
     revision: d0b7924347cafb050f078e1607d70d2ca8ddcb7f
@@ -35,6 +38,7 @@ GRAPH
     build-essential (>= 0.0.0)
     yum (>= 0.0.0)
   openssl (1.1.0)
+  openswan (1.0.0)
   opsworks_custom_env (0.3.0)
   php (1.4.6)
     build-essential (>= 0.0.0)
