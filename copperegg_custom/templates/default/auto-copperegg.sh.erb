@@ -1,0 +1,72 @@
+#!/bin/bash
+
+IDCOP=$1
+SERVER=$2
+
+which expect >/dev/null
+if [ $? -ne 0 ]
+then
+	echo "ERROR: please install expect (e.g. apt-get install expect)"
+	exit 1
+fi
+
+APACHE="N"
+NGINX="N"
+case "$SERVER" in
+	"apache") APACHE="y";;
+	"nginx")  NGINX="y";;
+	*) echo "ERROR: Bad server name."
+	   echo "USAGE: $0 IDCOP [apache|nginx]"
+	   exit 1;;
+esac
+
+
+rm /tmp/install_cuegg_custom.sh 2>/dev/null
+curl -sk http://${IDCOP}@api.copperegg.com/cm.sh > /tmp/install_cuegg_custom.sh
+if [ ! -f /tmp/install_cuegg_custom.sh ]
+then
+	echo "ERROR: /tmp/install_cuegg_custom.sh does not exist!"
+	exit 1
+fi
+chmod 700 /tmp/install_cuegg_custom.sh
+
+expect<<_EOF_
+set timeout -1
+spawn /tmp/install_cuegg_custom.sh
+match_max 100000
+expect  "Configure mysql monitoring?"
+send -- "\r"
+expect "Configure redis monitoring?"
+send -- "\r"
+expect "Configure apache monitoring?"
+send -- "$APACHE\r"
+expect "Configure nginx monitoring?"
+send -- "$NGINX\r"
+expect "Do you have a custom ruby install (eg ree/rvm)?"
+send -- "\r"
+expect "What frequency would you like?"
+send -- "\r"
+expect "run agent as"
+send -- "\r"
+expect "run agent as"
+send -- "\r"
+expect "group_name"
+send -- "\r"
+expect "group_label"
+send -- "\r"
+expect "dashboard"
+send -- "\r"
+expect "unique_id"
+send -- "\r"
+expect "url:"
+send -- "\r"
+expect "Add another"
+send -- "n\r"
+expect "Create upstart init file for agent?"
+send -- "\r"
+expect "log file"
+send -- "\r"
+expect eof
+_EOF_
+
+
