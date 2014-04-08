@@ -1,4 +1,4 @@
 source "http://api.berkshelf.com"
 
-cookbook 'mysql'
 cookbook 'apt'
+cookbook 'awscli', github: 'shlomoswidler/awscli'

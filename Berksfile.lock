@@ -1,7 +1,9 @@
 DEPENDENCIES
   apt
-  mysql
+  awscli
+    git: git://github.com/shlomoswidler/awscli.git
+    revision: d8ed8082b887d7c33e5ff5951178b8c06ee883e7
 
 GRAPH
   apt (2.3.8)
-  mysql (5.0.6)
+  awscli (0.2.0)
