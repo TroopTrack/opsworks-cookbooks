@@ -4,9 +4,6 @@ DEPENDENCIES
     git: git://github.com/shlomoswidler/awscli.git
     revision: d8ed8082b887d7c33e5ff5951178b8c06ee883e7
   newrelic
-  opsworks_custom_env
-    git: git://github.com/UndoConsulting/opsworks_custom_env.git
-    revision: d0b7924347cafb050f078e1607d70d2ca8ddcb7f
   postgresql
 
 GRAPH
@@ -31,7 +28,6 @@ GRAPH
     build-essential (>= 0.0.0)
     yum (>= 0.0.0)
   openssl (1.1.0)
-  opsworks_custom_env (0.3.0)
   php (1.4.6)
     build-essential (>= 0.0.0)
     iis (>= 0.0.0)
