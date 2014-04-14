@@ -10,4 +10,3 @@ cookbook 'postgresql'
 cookbook 'opsworks_custom_env', github: 'UndoConsulting/opsworks_custom_env'
 
 cookbook 'mirthconnect', github: 'developertown/cookbook-mirthconnect'
-cookbook 'openswan', github: 'developertown/cookbook-openswan'
