@@ -166,7 +166,7 @@ The deployment LWRP sends deployment information to New Relic.
 api_key - Your New Relic API key
 app_name - The name of the application, found in the newrelic.yml file
 app_id - The ID # of the application
-description - Text annotation for the deployment — notes for you
+description - Text annotation for the deployment - notes for you
 revision - The revision number from your source control system (SVN, git, etc.)
 changelog - A list of changes for this deployment
 user - The name of the user/process that triggered this deployment
