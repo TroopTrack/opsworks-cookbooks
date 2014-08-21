@@ -21,7 +21,8 @@
 	url = https://github.com/opscode-cookbooks/build-essential.git
 [submodule "copperegg"]
 	path = copperegg
-	url = https://github.com/CopperEgg/chef-copperegg
+	url = https://github.com/developertown/chef-copperegg
+  branch = unicode_readme
 [submodule "sumologic-collector"]
 	path = sumologic-collector
 	url = https://github.com/SumoLogic/sumologic-collector-chef-cookbook
