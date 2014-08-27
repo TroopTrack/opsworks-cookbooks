@@ -26,7 +26,7 @@ server {
     }
   }
   
-  location ^~ /<%= node[:nginx][:assets_dir].strip %>/ {
+  location ^~ /<%= @application[:nginx][:assets_dir].strip %>/ {
     location ~* "^.*?\.(eot)|(ttf)|(woff)$" {
       add_header Access-Control-Allow-Origin *;
     }
