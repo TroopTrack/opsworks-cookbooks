@@ -29,3 +29,6 @@
 [submodule "chef_handler"]
 	path = chef_handler
 	url = https://github.com/opscode-cookbooks/chef_handler
+[submodule "scout"]
+	path = scout
+	url = https://github.com/scoutapp/scout_cookbooks
