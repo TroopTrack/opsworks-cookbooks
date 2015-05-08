@@ -53,6 +53,8 @@ if node['sumologic']['sources']
   end
 end
 
+sumo_slug_name = node['opsworks']['applications'][0]['slug_name']
+
 template '/etc/sumo.json' do
   cookbook node['sumologic']['json_config_cookbook']
   source json_source
@@ -62,7 +64,7 @@ template '/etc/sumo.json' do
   variables({
     :sources => sources,
     :app_name => node['opsworks']['applications'][0]['slug_name'],
-    :app_stage => node['deploy']['#{node['opsworks']['applications'][0]['slug_name']}']['rails_env'],
+    :app_stage => node['deploy'][sumo_slug_name]['rails_env'],
   })
   action :create
 end
