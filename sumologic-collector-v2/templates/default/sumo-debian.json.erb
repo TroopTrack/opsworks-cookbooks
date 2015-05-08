@@ -1,0 +1,52 @@
+{
+    "api.version": "v1",
+    "sources": [
+        <% unless @app_name.empty? -%>
+        {
+            "name": "<%= @app_name %>-nginxlogs",
+            "sourceType": "LocalFile",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": false,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "timeZone": "UTC",
+            "category": "<%= @app_name %>",
+            "pathExpression": "/var/log/nginx/*.log"
+        },
+        {
+            "name": "<%= @app_name %>-ruby",
+            "sourceType": "LocalFile",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "manualPrefixRegexp": "^Processing.*",
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "timeZone": "UTC",
+            "category": "<%= @app_name %>",
+            "pathExpression": "/srv/www/<%= @app_name %>/shared/log/<%= @app_stage %>.log"
+        },
+        <% end -%>
+        {
+            "name": "Syslog File",
+            "sourceType": "LocalFile",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": false,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "timeZone": "UTC",
+            "category": "OS/Linux/System",
+            "pathExpression": "/var/log/syslog"
+        },
+        {
+            "name": "Secure",
+            "sourceType": "LocalFile",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": false,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "timeZone": "UTC",
+            "category": "OS/Linux/Security",
+            "pathExpression": "/var/log/auth.log"
+        }
+    ]
+}
