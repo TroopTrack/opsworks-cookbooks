@@ -53,6 +53,12 @@ end
 #Check to see if the default sumo.conf was overridden
 conf_source = node['sumologic']['conf_template'] || 'sumo.conf.erb'
 
+# build collector name
+app_name = node['opsworks']['applications'][0]['slug_name']
+app_stage = node['deploy'][app_name]['rails_env']
+instance_name = node['opsworks']['instance']['hostname']
+collector_name = "#{app_name}-#{app_stage}_#{instance_name}"
+
 template '/etc/sumo.conf' do
   cookbook node['sumologic']['conf_config_cookbook']
   source conf_source 
@@ -65,6 +71,7 @@ template '/etc/sumo.conf' do
     :accessKey => credentials[:accessKey],
     :email     => credentials[:email],
     :password  => credentials[:password],
+    :collector_name => collector_name,
   })
   action :create
 end

@@ -1,4 +1,4 @@
-name=<%= node['sumologic']['name'] ? node['sumologic']['name'] : node.name %>
+name=<%= node['sumologic']['name'] ? node['sumologic']['name'] : @collector_name %>
 sources=/etc/sumo.json
 ephemeral=<%= node['sumologic']['ephemeral'] %>
 <%=
