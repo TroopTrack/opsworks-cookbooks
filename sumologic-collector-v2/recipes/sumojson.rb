@@ -63,7 +63,7 @@ template '/etc/sumo.json' do
   mode 0644
   variables({
     :sources => sources,
-    :app_name => node['opsworks']['applications'][0]['slug_name'],
+    :app_name => sumo_slug_name,
     :app_stage => node['deploy'][sumo_slug_name]['rails_env'],
   })
   action :create
