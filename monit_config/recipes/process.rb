@@ -14,7 +14,7 @@ node[:deploy].each do |application, deploy|
     variables(
       :process_info => node[:monit_process],
       :app_user => deploy[:user],
-      :app_path => deploy[:current_path],
+      :app_path => '/srv/www/trooptrack_web/current',
       :app_env => deploy[:rails_env]
     )
     action :create

@@ -16,7 +16,7 @@ template "/etc/monit/monitrc" do
 end
 
 execute "build_monit_pem_certificate" do
-  command "cat /etc/nginx/ssl/#{node[:monit_process][:stack_firstly_added_domain]}.key >> /etc/monit/monit.pem && cat /etc/nginx/ssl/#{node[:monit_process][:stack_firstly_added_domain]}.crt >> /etc/monit/monit.pem && chmod 600 /etc/monit/monit.pem"
+  command "cat /etc/nginx/ssl/#{node[:monit_process][:stack_firstly_added_domain]}.key > /etc/monit/monit.pem && cat /etc/nginx/ssl/#{node[:monit_process][:stack_firstly_added_domain]}.crt >> /etc/monit/monit.pem && chmod 600 /etc/monit/monit.pem"
   user "root"
   group "root"
 end

@@ -11,7 +11,9 @@ set mail-format {
 }
 <% end %>
 <% if @process_info[:email] -%>
-set alert <%= @process_info[:email] %> on { nonexist, timeout }
+  <% @process_info[:email].each do |email| %>
+set alert <%= email %> on { nonexist, timeout }
+  <% end %>
 <% end %>
 
 check process <%= @process_info[:process_name] %>
