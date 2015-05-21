@@ -1,0 +1,22 @@
+<% if @process_info[:mailserver] -%>
+set mailserver <%= @process_info[:mailserver][:address] %> port <%= @process_info[:mailserver][:port] %>
+  username "<%= @process_info[:mailserver][:username] %>"
+  password "<%= @process_info[:mailserver][:password] %>"
+  using tlsv1
+  with timeout 30 seconds
+set mail-format { 
+  from: tech@trooptrack.com
+  reply-to: tech@trooptrack.com
+  subject: <%= @process_info[:stack] %> - $SERVICE $EVENT at $DATE
+}
+<% end %>
+<% if @process_info[:email] -%>
+set alert <%= @process_info[:email] %> on { nonexist, timeout }
+<% end %>
+
+check process <%= @process_info[:process_name] %>
+  matching "<%= @process_info[:process_name] %>"
+  start program = "/usr/bin/env PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games; sh -c 'cd <%= @app_path %> && RAILS_ENV=<%= @app_env %> nohup script/<%= @process_info[:process_name] %>_server >> <%= @app_path %>/log/<%= @process_info[:process_name] %>.log 2>&1 &'"
+    as uid <%= @app_user %>
+  stop program = "/usr/bin/env PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games; sh -c 'kill `ps -e -o pid,command | grep -i "[r]uby script/<%= @process_info[:process_name] %>_server" | sed "s/^[ ]*//" | cut -d" " -f1 `'"
+  if 5 restarts within 5 cycles then timeout
