@@ -22,6 +22,7 @@
 
 # Collector Name if not set defaults to chef node name
 default['sumologic']['name']      = nil
+default['sumologic']['prefix']    = nil
 
 # Data Bag for Collector Credentials
 default['sumologic']['credentials']['bag_name'] = 'sumo-creds'

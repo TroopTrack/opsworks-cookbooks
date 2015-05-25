@@ -1,5 +1,8 @@
 sumologic-collector-v2 Cookbook
 ============================
+
+## Modified version based on [sumologic-collector-chef-cookbook](https://github.com/SumoLogic/sumologic-collector-chef-cookbook/)
+
 This cookbook installs the Sumo Logic collector on Linux using the shell script
 installer. Here are the steps it follows:
 
