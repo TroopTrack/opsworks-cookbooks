@@ -18,7 +18,7 @@ set alert <%= email %> on { nonexist, timeout }
 
 check process <%= @process_info[:process_name] %>
   matching "<%= @process_info[:process_name] %>"
-  start program = "/usr/bin/env PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games; sh -c 'cd <%= @app_path %> && mv log/<%= @process_info[:process_name] %>.log log/<%= @process_info[:process_name] %>.log-`date +%Y%m%d%H%M` && RAILS_ENV=<%= @app_env %> nohup script/<%= @process_info[:process_name] %>_server >> <%= @app_path %>/log/<%= @process_info[:process_name] %>.log 2>&1 &'"
-    as uid <%= @app_user %>
+  start program = "/usr/bin/env PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games; sh -c 'cd <%= @app_path %>/current && mv <%= @app_path %>/shared/log/<%= @process_info[:process_name] %>.log <%= @app_path %>/shared/log/<%= @process_info[:process_name] %>.log-`date +%Y%m%d%H%M` && RAILS_ENV=<%= @app_env %> nohup script/<%= @process_info[:process_name] %>_server >> <%= @app_path %>/shared/log/<%= @process_info[:process_name] %>.log 2>&1 &'"
+    as uid <%= @app_user %> and gid <%= @app_group %>
   stop program = "/usr/bin/env PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games; sh -c 'kill `ps -e -o pid,command | grep -i "[r]uby script/<%= @process_info[:process_name] %>_server" | sed "s/^[ ]*//" | cut -d" " -f1 `'"
   if 5 restarts within 5 cycles then timeout
