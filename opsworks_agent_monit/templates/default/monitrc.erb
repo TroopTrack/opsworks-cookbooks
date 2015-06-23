@@ -1,0 +1,17 @@
+set daemon 60
+set mailserver localhost
+set eventqueue
+    basedir /var/monit
+    slots 100
+set logfile syslog
+Include <%= node[:monit][:conf_dir] %>/*.monitrc
+
+<% if @monit_config -%>
+set httpd port 2812
+  ssl enable
+  pemfile /etc/monit/monit.pem
+  allow <%= @monit_config[:webgui][:username] %>:<%= @monit_config[:webgui][:password] %>
+<% else %>
+set httpd port 2812 and use the address localhost
+  allow localhost
+<% end %>
