@@ -53,7 +53,9 @@ if node['sumologic']['sources']
   end
 end
 
+prefix = node['sumologic']['prefix'] ? "#{node['sumologic']['prefix']}_" : ''
 sumo_slug_name = node['opsworks']['applications'][0]['slug_name']
+source_category = "#{prefix}#{sumo_slug_name}"
 
 template '/etc/sumo.json' do
   cookbook node['sumologic']['json_config_cookbook']
@@ -64,6 +66,7 @@ template '/etc/sumo.json' do
   variables({
     :sources => sources,
     :app_name => sumo_slug_name,
+    :source_category => source_category,
     :app_stage => node['deploy'][sumo_slug_name]['rails_env'],
   })
   action :create

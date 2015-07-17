@@ -10,7 +10,7 @@
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "timeZone": "UTC",
-            "category": "<%= @app_name %>",
+            "category": "<%= @source_category %>",
             "pathExpression": "/var/log/nginx/*.log"
         },
         {
@@ -22,7 +22,7 @@
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "timeZone": "UTC",
-            "category": "<%= @app_name %>",
+            "category": "<%= @source_category %>",
             "pathExpression": "/srv/www/<%= @app_name %>/shared/log/<%= @app_stage %>.log"
         },
         <% end -%>
@@ -34,7 +34,7 @@
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "timeZone": "UTC",
-            "category": "OS/Linux/System",
+            "category": "<%= @source_category %>",
             "pathExpression": "/var/log/syslog"
         },
         {
@@ -45,7 +45,7 @@
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "timeZone": "UTC",
-            "category": "OS/Linux/Security",
+            "category": "<%= @source_category %>",
             "pathExpression": "/var/log/auth.log"
         }
     ]
