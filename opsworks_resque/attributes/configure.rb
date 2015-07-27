@@ -1,3 +1,3 @@
-default[:opsworks_resque][:workers] = { 'super_high,high,medium,*' => 2 }
-default[:opsworks_resque][:rails_env] = 'production'
-default[:opsworks_resque][:path] = '/srv/www/trooptrack_web/current'
+default[:opsworks_resque][:workers] = { '*' => 2 }
+default[:opsworks_resque][:rails_env] = 'staging'
+default[:opsworks_resque][:path] = '/srv/www/app/current'
