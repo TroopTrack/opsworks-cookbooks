@@ -14,7 +14,7 @@ if node[:opsworks][:instance][:hostname] == "backoffice-app1" or node[:opsworks]
       mode 0644
       variables(
         :app_name => "resque-scheduler",
-        :pid_file => "#{deploy[:deploy_to]}/shared/pids/resque-scheduler.pid",
+        :pid_file => "/srv/www/trooptrack_web/shared/pids/resque-scheduler.pid",
         :resque_group_name => "resque_workers"
       )
       action :create

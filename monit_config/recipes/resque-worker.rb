@@ -16,11 +16,12 @@ if node[:opsworks][:instance][:hostname] == "backoffice-app1" or node[:opsworks]
         mode 0644
         variables(
           :app_name => "resque-worker-#{idx}",
-          :pid_file => "#{deploy[:deploy_to]}/shared/pids/resque-worker-#{idx}.pid",
+          :pid_file => "/srv/www/trooptrack_web/shared/pids/resque-worker-#{idx}.pid",
           :resque_group_name => "resque_workers"
         )
         action :create
       end
+    end
   end
 
   service 'monit' do
