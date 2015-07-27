@@ -1,0 +1,19 @@
+#!upstart
+description "Resque worker <%= @instance %> <%= @queue %>"
+respawn
+start on starting resque-worker
+stop on stopping resque-worker
+
+env QUEUES='<%= @queue %>'
+export QUEUES
+env RACK_ENV=<%= node['opsworks_resque']['rails_env'] %>
+export RACK_ENV
+env RAILS_ENV=<%= node['opsworks_resque']['rails_env'] %>
+export RAILS_ENV
+env TERM_CHILD=1
+export TERM_CHILD
+env RESQUE_TERM_TIMEOUT=7
+export RESQUE_TERM_TIMEOUT
+
+chdir <%= node['opsworks_resque']['path'] %>
+exec sudo -u deploy -E -- bundle exec rake environment --trace resque:work QUEUES='<%= @queue %>' PIDFILE=tmp/pids/resque-worker-<%= @instance %>.pid >> log/resque-worker-<%= @instance %>.log 2>&1

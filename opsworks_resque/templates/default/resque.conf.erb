@@ -1,0 +1,14 @@
+#!upstart
+description "Resque workers"
+
+env VERBOSE=true
+export VERBOSE
+env RACK_ENV=<%= node['opsworks_resque']['rails_env'] %>
+export RACK_ENV
+env RAILS_ENV=<%= node['opsworks_resque']['rails_env'] %>
+export RAILS_ENV
+env HOME=/home/deploy
+export HOME
+
+start on runlevel [2345]
+stop on runlevel [016]
