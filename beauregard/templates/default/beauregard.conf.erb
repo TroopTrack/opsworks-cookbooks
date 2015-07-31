@@ -1,0 +1,18 @@
+#!upstart
+description "Beauregard email processor"
+respawn
+
+env VERBOSE=true
+export VERBOSE
+env RACK_ENV=<%= node['beauregard']['rails_env'] %>
+export RACK_ENV
+env RAILS_ENV=<%= node['beauregard']['rails_env'] %>
+export RAILS_ENV
+env HOME=/home/deploy
+export HOME
+
+chdir <%= node['beauregard']['path'] %>
+exec sudo -u deploy -E -- bundle exec ruby script/beauregard route --loglevel=debug --logfile=<%= node['beauregard']['logfile'] %> --mailbox=Beauregard
+
+start on runlevel [2345]
+stop on runlevel [016]
