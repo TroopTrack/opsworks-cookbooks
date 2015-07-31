@@ -1,0 +1,5 @@
+check process beauregard
+  matching "Beauregard Parent: Forked"
+  start program = "/usr/sbin/service beauregard start" with timeout 60 seconds
+  stop program = "/usr/sbin/service beauregard stop"
+  if 5 restarts within 5 cycles then timeout
