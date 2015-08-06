@@ -1,6 +1,6 @@
 check process <%= @app_name %>
   with pidfile "<%= @pid_file %>"
   group <%= @resque_group_name %>
-  start program = "/usr/sbin/service <%= @app_name %> start" with timeout 60 seconds
+  start program = "/usr/sbin/service <%= @app_name %> start" with timeout 90 seconds
   stop program = "/usr/sbin/service <%= @app_name %> stop"
   if 5 restarts within 5 cycles then timeout
