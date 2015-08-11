@@ -3,7 +3,7 @@
 # Recipe:: resque-scheduler
 #
 
-if node[:opsworks][:instance][:hostname] == "backoffice-app1" or node[:opsworks][:instance][:hostname] == "web-app1"
+if node[:opsworks][:instance][:hostname] == node['opsworks_resque_scheduler']['admin_instance']
   node[:deploy].each do |application, deploy|
     Chef::Log.info("Configure monit service to monitor resque-scheduler...")
 
