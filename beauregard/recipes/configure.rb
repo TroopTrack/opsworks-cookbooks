@@ -3,7 +3,7 @@
 # recipe:: configure
 #
 
-if node[:opsworks][:instance][:hostname] == "backoffice-app1" or node[:opsworks][:instance][:hostname] == "web-app1"
+if node[:opsworks][:instance][:hostname] == node['beauregard']['admin_instance']
   node[:deploy].each do |application, deploy|
     Chef::Log.info("Configuring beauregard email processor for application #{application}")
 
