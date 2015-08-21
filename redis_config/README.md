@@ -14,6 +14,9 @@ redis_config
 {
   "deploy" : {
     "app_short_name" : {
+      "symlink_before_migrate" : {
+        "config/redis.yml": "config/redis.yml"
+      },
       "redis" : {
         "host" : "app_short_name.0001.euw1.cache.amazonaws.com",
         "port" : "6379"
