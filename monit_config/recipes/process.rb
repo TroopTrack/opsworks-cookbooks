@@ -3,7 +3,7 @@
 # Recipe:: process
 #
 
-if node[:opsworks][:instance][:hostname] == "backoffice-app1"
+if node[:opsworks][:instance][:hostname] == node['monit_process']['admin_instance']
   node[:deploy].each do |application, deploy|
     Chef::Log.info("Configure monit service to track #{node[:monit_process][:process_name]} process...")
 
