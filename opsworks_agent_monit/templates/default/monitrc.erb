@@ -1,17 +1,39 @@
 set daemon 60
-set mailserver localhost
 set eventqueue
     basedir /var/monit
     slots 100
 set logfile syslog
 Include <%= node[:monit][:conf_dir] %>/*.monitrc
 
-<% if @monit_config -%>
+<% if node[:monit][:webgui][:enable] -%>
 set httpd port 2812
+ <% if node[:monit][:webgui][:enable_ssl] -%>
   ssl enable
-  pemfile /etc/monit/monit.pem
-  allow <%= @monit_config[:webgui][:username] %>:<%= @monit_config[:webgui][:password] %>
-<% else %>
+  pemfile <%= node[:monit][:pem] %>
+ <% end -%>
+  allow <%= node[:monit][:webgui][:username] %>:<%= node[:monit][:webgui][:password] %>
+<% else -%>
 set httpd port 2812 and use the address localhost
   allow localhost
+<% end -%>
+
+<% if node[:monit][:smtp][:address] == 'localhost' -%>
+set mailserver localhost
+<% else %>
+set mailserver <%= node[:monit][:smtp][:address] %> port <%= node[:monit][:smtp][:port] %>
+  username "<%= node[:monit][:smtp][:username] %>"
+  password "<%= node[:monit][:smtp][:password] %>"
+  using tlsv1
+  with timeout 30 seconds
+<% end -%>
+
+<% if node[:monit][:email] -%>
+set mail-format { 
+  from: tech@execonline.com
+  reply-to: tech@execonline.com
+  subject: <%= node[:monit][:stack] %> - $SERVICE $EVENT at $DATE
+}
+<% node[:monit][:email].each do |email| %>
+set alert <%= email %> on { nonexist, timeout }
 <% end %>
+<% end -%>

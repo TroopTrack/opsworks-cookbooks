@@ -5,3 +5,28 @@
 # "opsworks_agent_monit/attributes/customize.rb" in your cookbook repository and
 # put the overrides in YOUR customize.rb file.
 ###
+
+case node['platform']
+when 'centos','redhat','fedora','suse','amazon'
+  default[:monit][:conf]     = '/etc/monit.conf'
+  default[:monit][:conf_dir] = '/etc/monit.d'
+  default[:monit][:pem]     = '/etc/monit.pem'
+when 'debian','ubuntu'
+  default[:monit][:conf]     = '/etc/monit/monitrc'
+  default[:monit][:conf_dir] = '/etc/monit/conf.d'
+  default[:monit][:pem]     = '/etc/monit/monit.pem'
+end
+
+default[:monit][:webgui][:enable] = false
+default[:monit][:webgui][:username] = 'monit-admin'
+default[:monit][:webgui][:password] = ''
+default[:monit][:webgui][:enable_ssl] = false
+default[:monit][:webgui][:app_ssl_certificate] = ''
+
+default[:monit][:smtp][:address] = 'localhost'
+default[:monit][:smtp][:port] = '587'
+default[:monit][:smtp][:username] = ''
+default[:monit][:smtp][:password] = ''
+
+default[:monit][:email] = nil
+default[:monit][:stack] = 'TEST'
