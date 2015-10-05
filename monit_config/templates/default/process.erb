@@ -1,21 +1,3 @@
-<% if @process_info[:mailserver] -%>
-set mailserver <%= @process_info[:mailserver][:address] %> port <%= @process_info[:mailserver][:port] %>
-  username "<%= @process_info[:mailserver][:username] %>"
-  password "<%= @process_info[:mailserver][:password] %>"
-  using tlsv1
-  with timeout 30 seconds
-set mail-format { 
-  from: tech@trooptrack.com
-  reply-to: tech@trooptrack.com
-  subject: <%= @process_info[:stack] %> - $SERVICE $EVENT at $DATE
-}
-<% end %>
-<% if @process_info[:email] -%>
-  <% @process_info[:email].each do |email| %>
-set alert <%= email %> on { nonexist, timeout }
-  <% end %>
-<% end %>
-
 check process <%= @process_info[:process_name] %>
   matching "<%= @process_info[:process_name] %>"
   start program = "/usr/bin/env PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games; sh -c 'cd <%= @app_path %>/current && mv <%= @app_path %>/shared/log/<%= @process_info[:process_name] %>.log <%= @app_path %>/shared/log/<%= @process_info[:process_name] %>.log-`date +%Y%m%d%H%M` 2>/dev/null ; touch <%= @app_path %>/shared/log/<%= @process_info[:process_name] %>.log && chmod 0644 <%= @app_path %>/shared/log/<%= @process_info[:process_name] %>.log && RAILS_ENV=<%= @app_env %> nohup script/<%= @process_info[:process_name] %>_server >> <%= @app_path %>/shared/log/<%= @process_info[:process_name] %>.log 2>&1 &'"
