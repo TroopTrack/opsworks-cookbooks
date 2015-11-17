@@ -41,3 +41,6 @@
 [submodule "yum"]
 	path = yum
 	url = https://github.com/chef-cookbooks/yum.git
+[submodule "aws"]
+	path = aws
+	url = https://github.com/chef-cookbooks/aws.git
