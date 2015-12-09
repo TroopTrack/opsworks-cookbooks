@@ -41,3 +41,6 @@
 [submodule "aws"]
 	path = aws
 	url = https://github.com/chef-cookbooks/aws.git
+[submodule "windows"]
+	path = windows
+	url = https://github.com/chef-cookbooks/windows
