@@ -35,9 +35,6 @@
 [submodule "opsworks_sidekiq"]
 	path = opsworks_sidekiq
 	url = https://github.com/drakerlabs/opsworks_sidekiq.git
-[submodule "datadog"]
-	path = datadog
-	url = https://github.com/DataDog/chef-datadog.git
 [submodule "yum"]
 	path = yum
 	url = https://github.com/chef-cookbooks/yum.git
