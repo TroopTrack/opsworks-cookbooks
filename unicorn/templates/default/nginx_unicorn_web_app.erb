@@ -47,8 +47,8 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
-  
-  if ($http_user_agent ~* "<%= @application[:block_user_agent]%>") { return 403; }  
+
+  if ($http_user_agent ~* "<%= @application[:block_user_agent]%>") { return 403; }
 }
 
 <% if @application[:ssl_support] %>
@@ -98,7 +98,9 @@ server {
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
   }
-  
+
+  <% if @application[:block_user_agent] =~ /\S/ %>
   if ($http_user_agent ~* "<%= @application[:block_user_agent]%>") { return 403; }
+  <% end %>
 }
 <% end %>
