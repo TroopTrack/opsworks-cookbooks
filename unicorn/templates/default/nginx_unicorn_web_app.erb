@@ -48,7 +48,9 @@ server {
     root <%= @application[:absolute_document_root] %>;
   }
 
+  <% if @application[:block_user_agent] =~ /\S/ %>
   if ($http_user_agent ~* "<%= @application[:block_user_agent]%>") { return 403; }
+  <% end %>
 }
 
 <% if @application[:ssl_support] %>
