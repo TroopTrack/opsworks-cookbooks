@@ -25,6 +25,17 @@
             "category": "<%= @source_category %>",
             "pathExpression": "/srv/www/<%= @app_name %>/shared/log/<%= @app_stage %>.log"
         },
+        {
+            "name": "<%= @app_name %>-unicorn.stderr",
+            "sourceType": "LocalFile",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": false,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "timeZone": "UTC",
+            "category": "<%= @source_category %>",
+            "pathExpression": "/srv/www/<%= @app_name %>/shared/log/unicorn.stderr.log"
+        },
         <% end -%>
         {
             "name": "Syslog File",
