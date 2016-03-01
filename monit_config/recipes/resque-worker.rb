@@ -7,7 +7,7 @@ if node[:opsworks][:instance][:hostname] == node['opsworks_resque']['admin_insta
   node[:deploy].each do |application, deploy|
     Chef::Log.info("Configure monit service to resque workers...")
 
-    2.times do |idx|
+    node['monit_resque_workers']['quantity'].times do |idx|
       idx = idx + 1 # make index 1-based
       template "/etc/monit/conf.d/resque-worker-#{idx}.monitrc" do
         source "resque-worker.erb"
