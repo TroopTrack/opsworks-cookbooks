@@ -12,6 +12,15 @@ server {
   client_max_body_size 1024m;
 
   root <%= @application[:absolute_document_root] %>;
+  
+  <% if @application[:block_location_403] =~ /\S/ %>
+  location = <%= @application[:block_location_403]%> {
+    access_log off;
+    log_not_found off;
+    error_log off;
+    deny all;
+  }
+  <% end %>
 
   location / {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -71,6 +80,15 @@ server {
   client_max_body_size 1024m;
 
   root <%= @application[:absolute_document_root] %>;
+  
+  <% if @application[:block_location_403] =~ /\S/ %>
+  location = <%= @application[:block_location_403]%> {
+    access_log off;
+    log_not_found off;
+    error_log off;
+    deny all;
+  }
+  <% end %>
 
   location / {
     proxy_set_header X-Forwarded-Proto https;
