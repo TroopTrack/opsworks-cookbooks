@@ -35,6 +35,14 @@ server {
     }
   }
 
+  <% if @application[:nginx][:websocket_endpoint] %>
+  location ~ <%=@application[:nginx][:websocket_endpoint]%>$ {
+    proxy_pass http://unicorn_<%= @application[:domains].first %>;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+  }
+  <% end %>
+
   location ^~ /<%= @application[:nginx][:assets_dir].strip %>/ {
     location ~* "^.*?\.(eot)|(ttf)|(woff)|(woff2)$" {
       add_header Access-Control-Allow-Origin *;
@@ -104,6 +112,15 @@ server {
     }
   }
 
+  <% if @application[:nginx][:websocket_endpoint] %>
+  location ~ <%=@application[:nginx][:websocket_endpoint]%>$ { 
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_pass http://unicorn_<%= @application[:domains].first %>;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+  }
+  <% end %>
+                                                         
   location ^~ /assets/ {
     location ~* "^.*?\.(eot)|(ttf)|(woff)|(woff2)$" {
       add_header Access-Control-Allow-Origin *;
