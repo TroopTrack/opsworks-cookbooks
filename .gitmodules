@@ -34,7 +34,7 @@
 	url = https://github.com/scoutapp/scout_cookbooks
 [submodule "opsworks_sidekiq"]
 	path = opsworks_sidekiq
-	url = https://github.com/kit-crm-inc/opsworks_sidekiq.git
+	url = https://github.com/developertown/opsworks_sidekiq.git
 [submodule "yum"]
 	path = yum
 	url = https://github.com/chef-cookbooks/yum.git
