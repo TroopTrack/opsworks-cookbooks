@@ -44,3 +44,6 @@
 [submodule "windows"]
 	path = windows
 	url = https://github.com/chef-cookbooks/windows
+[submodule "opsworks-sidekiq"]
+	path = opsworks-sidekiq
+	url = https://github.com/dnewkerk/opsworks-sidekiq.git
