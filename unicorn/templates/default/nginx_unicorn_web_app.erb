@@ -3,7 +3,11 @@ upstream unicorn_<%= @application[:domains].first %> {
 }
 
 server {
-  listen 80;
+  <% if @application[:nginx][:use_proxy_protocol] %> 
+    listen 80 proxy_protocol;
+  <% else %>
+    listen 80;
+  <% end %>
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
   access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.log;
 
@@ -12,7 +16,13 @@ server {
   client_max_body_size 1024m;
 
   root <%= @application[:absolute_document_root] %>;
-  
+
+  <% if @application[:nginx][:force_ssl] %>
+    if ($http_x_forwarded_proto != 'https') {
+      rewrite https://$host/$request_uri? permanent;
+    }
+  <% end %>
+                                              
   <% if @application[:block_location_403] =~ /\S/ %>
   location = <%= @application[:block_location_403]%> {
     access_log off;
@@ -40,6 +50,7 @@ server {
     proxy_pass http://unicorn_<%= @application[:domains].first %>;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "Upgrade";
+    proxy_http_version 1.1;
   }
   <% end %>
 
