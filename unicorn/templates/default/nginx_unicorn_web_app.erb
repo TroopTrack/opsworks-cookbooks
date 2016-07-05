@@ -51,6 +51,9 @@ server {
   <% if @application[:nginx][:websocket_endpoint] %>
   location ~ <%=@application[:nginx][:websocket_endpoint]%>$ {
     proxy_pass http://unicorn_<%= @application[:domains].first %>;
+    <% if @application[:nginx][:force_ssl] %>
+    proxy_set_header X-Forwarded-Proto https;
+    <% end %>
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "Upgrade";
     proxy_http_version 1.1;
