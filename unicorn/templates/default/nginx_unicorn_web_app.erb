@@ -87,6 +87,38 @@ server {
   <% end %>
 }
 
+<% if @application[:nginx][:use_proxy_protocol] %> 
+server {
+  listen 81;
+  server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
+  access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>_health_check.access.log;
+
+  root <%= @application[:absolute_document_root] %>;
+
+  <% if @application[:nginx][:force_ssl] %>
+    if ($http_x_forwarded_proto != 'https') {
+      rewrite https://$host/$request_uri? permanent;
+    }
+  <% end %>
+
+  location ~ /health_check$ {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    <% if @application[:nginx][:force_ssl] %>
+    proxy_set_header X-Forwarded-Proto https;
+    <% end %>
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+
+    # If you don't find the filename in the static files
+    # Then request it from the unicorn server
+    if (!-f $request_filename) {
+      proxy_pass http://unicorn_<%= @application[:domains].first %>;
+      break;
+    }
+  }
+}
+<% end %>
+
 <% if @application[:ssl_support] %>
 server {
   listen   443;
