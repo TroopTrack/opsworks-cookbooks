@@ -68,6 +68,15 @@ server {
   <% if @application[:block_user_agent] =~ /\S/ %>
   if ($http_user_agent ~* "<%= @application[:block_user_agent]%>") { return 403; }
   <% end %>
+  
+  <% if @application[:nginx_additional_location] %>
+    <% @application[:nginx_additional_location].each do |nginx_additional_location| %>
+  location = <%= nginx_additional_location[:location]%> {
+     <%= nginx_additional_location[:configuration]%>
+  }
+    <% end %>
+  <% end %>
+  
 }
 
 <% if @application[:ssl_support] %>
@@ -139,5 +148,14 @@ server {
   <% if @application[:block_user_agent] =~ /\S/ %>
   if ($http_user_agent ~* "<%= @application[:block_user_agent]%>") { return 403; }
   <% end %>
+
+  <% if @application[:nginx_additional_location] %>
+    <% @application[:nginx_additional_location].each do |nginx_additional_location| %>
+  location = <%= nginx_additional_location[:location]%> {
+     <%= nginx_additional_location[:configuration]%>
+  }
+    <% end %>
+  <% end %>
+
 }
 <% end %>
