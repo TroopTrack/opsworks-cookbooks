@@ -3,7 +3,7 @@
 # Recipe:: webgui
 #
 
-if node[:opsworks][:instance][:hostname] == "backoffice-app1"
+if node[:opsworks][:instance][:hostname] == node['monit_config']['admin_instance']
   template "/etc/monit/monitrc" do
     source "monitrc.erb"
     mode 0600
