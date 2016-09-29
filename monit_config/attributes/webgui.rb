@@ -1,0 +1,1 @@
+default['monit_config']['admin_instance'] = ''
