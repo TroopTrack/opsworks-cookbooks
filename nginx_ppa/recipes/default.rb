@@ -1,3 +1,11 @@
+# nginx-full and nginx-common conflict with upgraded nginx, remove them entirely first before installing nginx_ppa
+package "nginx-common" do
+  action :remove
+end
+
+package "nginx-full" do
+  action :remove
+end
 
 execute "apt-get update" do
   command "apt-get update"
@@ -16,5 +24,11 @@ end
 
 package "nginx" do
   action :upgrade
+  options '-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
 end
 
+include_recipe "nginx::service"
+
+service "nginx" do
+  action [ :enable, :start ]
+end
