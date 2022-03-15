@@ -10,7 +10,7 @@ repo_path = "node_#{node["nodejs"]["version"]}"
 
 apt_repository "nodesource" do
   arch repo_arch
-  uri "https://deb.nodesource.com/setup_14.x"
+  uri "https://deb.nodesource.com/node_14.x"
   distribution node["lsb"]["codename"]
   components ["main"]
   key "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
