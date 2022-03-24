@@ -1,3 +1,7 @@
+staging:
+  host: <%= @redis[:host] %>
+  port: <%= @redis[:port] || 6379 %>
+
 development:
   host: <%= @redis[:host] %>
   port: <%= @redis[:port] || 6379 %>
