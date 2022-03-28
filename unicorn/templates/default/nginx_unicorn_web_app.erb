@@ -1,3 +1,20 @@
+server {
+  listen   80;
+  server_name  172.21.1.159 172.21.2.224 172.21.3.185 172.21.0.101;
+  server_alies 172.20.0.215 172.20.2.134;
+
+  access_log  /var/log/nginx/localhost.access.log;
+
+  location /elb-status {
+    access_log off;
+    return 200 'A-OK!';
+    # because default content-type is application/octet-stream,
+    # browser will offer to "save the file"...
+    # the next line allows you to see it in the browser so you can test 
+    add_header Content-Type text/plain;
+  }
+
+}
 upstream unicorn_<%= @application[:domains].first %> {
  server unix:<%= @application[:deploy_to]%>/shared/sockets/unicorn.sock fail_timeout=0;
 }
