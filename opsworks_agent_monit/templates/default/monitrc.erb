@@ -29,10 +29,8 @@ set mailserver <%= node[:monit][:smtp][:address] %> port <%= node[:monit][:smtp]
 
 <% if node[:monit][:email] -%>
 set mail-format { 
-  from: alerts@trooptracktest.com
-  reply-to: alerts@trooptracktest.com
-  #from: tech@trooptrack.com
-  #reply-to: tech@trooptrack.com
+  from: tech@trooptrack.com
+  reply-to: tech@trooptrack.com
   subject: <%= node[:monit][:stack] %> - $SERVICE $EVENT at $DATE
 }
 <% node[:monit][:email].each do |email| %>
