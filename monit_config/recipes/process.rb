@@ -17,7 +17,7 @@ if node[:opsworks][:instance][:hostname] == node['monit_process']['admin_instanc
         :app_user => deploy[:user],
         :app_group => deploy[:group],
         :app_path => '/srv/www/trooptrack_web',
-        :app_env => deploy[:rails_env]
+        :app_env => "staging"
       )
       action :create
     end
